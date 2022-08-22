@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react'
+import QrReader from 'react-qr-reader-es6';
+import useSound from 'use-sound';
+import beep from "./mp3/beep.mp3";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const[result,setResult] = useState("Please scan first");
+  const handleError = (err)=> console.log(err);
+  const handleScan =  (data)=>{
+    if(data) play();
+    else  stop();
+    setTimeout(1500);
+    setResult(data);
+  }
+  const [play,{stop}] = useSound(beep);
+  return (<>
+  
+            <QrReader
+                delay={300}
+                onError={handleError}
+                onScan={handleScan}
+                resolution={1080}
+                style={{width:500,height: 500}}
+            />
+        <p>{result}</p>
+    </>
+  )
 }
+
 
 export default App;
