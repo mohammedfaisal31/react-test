@@ -18,7 +18,6 @@ function App() {
                 delay={300}
                 onError={handleError}
                 onScan={handleScan}
-                resolution={1080}
                 style={{width:500,height: 500}}
             />
         <p>{result}</p>
